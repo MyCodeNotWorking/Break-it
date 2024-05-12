@@ -10,12 +10,6 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
 	
-	if Input.is_action_pressed("ui_down"):
-		velocity.y = 4000
-		gravity = 11000
-	else:
-		gravity = 3000
-	
 	if is_on_floor():
 		jumps = 2
 
@@ -27,6 +21,12 @@ func _physics_process(delta):
 	if direction:
 		velocity.x = direction * SPEED
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-
+		velocity.x = -(direction * SPEED)
+	
 	move_and_slide()
+	
+	'''
+	for i in get_slide_collision_count():
+		var collision = get_slide_collision(i)
+		var c = (collision.get_collider() as StaticBody2D).get_node("CollisionShape2D")
+	'''
